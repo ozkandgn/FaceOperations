@@ -7,6 +7,7 @@ class DlibDetector():
 		self.dlib_base_values()
 		self.image = image
 		self.gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+		print("imageshape",self.image.shape)
 
 	def dlib_base_values(self):
 		#initial dlib 

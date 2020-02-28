@@ -1,61 +1,33 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+import tensorflow as tf
+#for close tensorflow logs
+
 import numpy as np
 import argparse
 import imutils
 import cv2
-from imutils import face_utils
 
-from angle import calculate_angle
-from dlib_operations import DlibDetector
+from detect import detect_cnn,detect_angle,detect_landmarks
 
 def get_image(path):
 	#get image and return resized image
 	image = cv2.imread(path)
 	return imutils.resize(image, width=500)
 
-def draw_landmark_points(image,landmarks):
-	#counter for the color
-	#for loop for the draw landmarks(there are 68 landmarks)
-	counter = 0
-	for (x, y) in landmarks:
-		cv2.circle(image, (x, y), 2, (round(counter*3.6), round(counter*3.6), round(counter*3.6)), -1)
-		counter+=1
-	return image
-
-
 if __name__ == '__main__':
 
-	#read gray image
-	image = get_image("test_images/1.jpg")
+	#read image
+	image = get_image("test_images/6.jpg")
 
-	dlib_detector = DlibDetector(image)
+	(detected_image,landmarks) = detect_angle(image)
 
-	#each face
-	rects = dlib_detector.detect_faces()
+	left_landmarks = landmarks[36:42]
+	right_landmarks = landmarks[42:48]
 
-	#for loop for each face
-	for (i, rect) in enumerate(rects):
+	detect_cnn(image,left_landmarks,right_landmarks)
 
-		#landmarks (dlib format)
-		shape = dlib_detector.get_landmarks(rect)
+	detect_landmarks(left_landmarks,right_landmarks)
 
-		#convert shape to array
-		landmarks = face_utils.shape_to_np(shape)
-
-		# for draw boinding box
-		(x, y, w, h) = face_utils.rect_to_bb(rect)
-
-		# bottom y value of the bounding box
-		bottom_box_pos = y + h
-		
-		#drawing bounding box
-		cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-		(angle_x, angle_y) = calculate_angle(landmarks, bottom_box_pos)
-
-		print("angle_x = ",angle_x)
-		print("angle_y = ",angle_y)
-
-		image = draw_landmark_points(image,landmarks)
-
-	cv2.imshow("Output", image)
+	cv2.imshow("Output", detected_image)
 	cv2.waitKey(0)
