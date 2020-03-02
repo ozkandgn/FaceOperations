@@ -17,7 +17,9 @@ def draw_landmark_points(image,landmarks):
 		counter+=1
 	return image
 
-def detect_angle(img):
+def detect_landmarks(img):
+	cv2.imshow("iii",img)
+	cv2.waitKey(0)
 	image = np.copy(img)
 	dlib_detector = DlibDetector(image)
 
@@ -35,20 +37,19 @@ def detect_angle(img):
 
 		# for draw boinding box
 		(x, y, w, h) = face_utils.rect_to_bb(rect)
-
-		# bottom y value of the bounding box
-		bottom_box_pos = y + h
 		
 		#drawing bounding box
 		cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-		(angle_x, angle_y) = calculate_angle(landmarks, bottom_box_pos)
-
-		print("angle_x = ",angle_x)
-		print("angle_y = ",angle_y)
-
 		draw_landmark_points(image,landmarks)
 		return (image,landmarks)
+
+def detect_angle(landmarks):
+	angle = calculate_angle(landmarks)
+
+	print("angle = ",angle)
+
+	return angle
 
 def detect_cnn(image,left_landmarks,right_landmarks):
 	sub_images = SubImage(image)
@@ -63,9 +64,13 @@ def detect_cnn(image,left_landmarks,right_landmarks):
 	print("left_pre_with_cnn = ",left_eye_cnn)
 	print("right_pre_with_cnn = ",right_eye_cnn)
 
-def detect_landmarks(left_landmarks,right_landmarks):
-	left_eye_landmarks = predict_blink_with_classes(left_landmarks)
-	right_eye_landmarks = predict_blink_with_classes(right_landmarks)
+	return (left_eye_cnn,right_eye_cnn)
 
-	print("left_pre_with_landmarks = ",left_eye_landmarks)
-	print("right_pre_with_landmarks = ",right_eye_landmarks)
+def detect_points(left_landmarks,right_landmarks):
+	left_eye_point = predict_blink_with_classes(left_landmarks)
+	right_eye_point = predict_blink_with_classes(right_landmarks)
+
+	print("left_pre_with_landmarks = ",left_eye_point)
+	print("right_pre_with_landmarks = ",right_eye_point)
+
+	return (left_eye_point,left_eye_point)
