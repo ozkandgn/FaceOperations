@@ -2,9 +2,11 @@ import cv2
 
 class SubImage():
 	def __init__(self,image):
+		#rgb to gray eye
 		self.image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 
 	def get_sub_image(self,shape):
+		#gets eye
 		x_pos = [i[0] for i in shape]
 		y_pos = [i[1] for i in shape]
 		self.image = cv2.medianBlur(self.image,5)
