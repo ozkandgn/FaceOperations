@@ -14,7 +14,7 @@ class DlibDetector():
 		self.detector = dlib.get_frontal_face_detector()
 		
 		#dlib predictor file (using HOG and SVM models)
-		self.predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+		self.predictor = dlib.shape_predictor("Image_Processes/shape_predictor_68_face_landmarks.dat")
 
 	def detect_faces(self):
 		#function detect faces

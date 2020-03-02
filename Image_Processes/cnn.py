@@ -1,17 +1,17 @@
 import cv2
 import numpy as np
 import pandas as pd
-
 from keras.models import load_model
-from image_filters import black_and_white
-from read_file import read_images
+
+from .image_filters import black_and_white
+from .read_file import read_images
 
 image_x = 45
 image_y = 10
 
 class CNN_Detect():
     def __init__(self):
-        self.model = load_model("model.h5")
+        self.model = load_model("Image_Processes/model.h5")
 
     def predict(self,img):
         img = cv2.resize(img,(image_x,image_y))

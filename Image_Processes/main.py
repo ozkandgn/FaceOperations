@@ -8,17 +8,16 @@ import argparse
 import imutils
 import cv2
 
-from detect import detect_cnn,detect_angle,detect_landmarks
+from .detect import detect_cnn,detect_angle,detect_landmarks
 
 def get_image(path):
 	#get image and return resized image
 	image = cv2.imread(path)
 	return imutils.resize(image, width=500)
 
-if __name__ == '__main__':
-
+def start_image_processing():
 	#read image
-	image = get_image("test_images/6.jpg")
+	image = get_image("Image_Processes/test_images/6.jpg")
 
 	(detected_image,landmarks) = detect_angle(image)
 

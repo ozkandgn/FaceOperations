@@ -1,7 +1,8 @@
 import pandas as pd
 import cv2
 import os
-from image_filters import black_and_white
+
+from .image_filters import black_and_white
 
 
 def read_images(path):

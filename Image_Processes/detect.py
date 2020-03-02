@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 from imutils import face_utils
 
-from angle import calculate_angle
-from dlib_operations import DlibDetector
-from get_eye import SubImage
-from cnn import CNN_Detect
-from blink_detector import predict_blink_with_classes
+from .angle import calculate_angle
+from .dlib_operations import DlibDetector
+from .get_eye import SubImage
+from .cnn import CNN_Detect
+from .blink_detector import predict_blink_with_classes
 
 def draw_landmark_points(image,landmarks):
 	#counter for the color
