@@ -1,0 +1,15 @@
+opencv-python
+python-socketio
+flask
+flask-socketio
+eventlet
+urllib
+json
+numpy
+pandas
+keras
+imutils
+dlib
+argparse
+tensorflow
+os
