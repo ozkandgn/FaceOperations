@@ -4,7 +4,6 @@ flask
 flask-socketio
 eventlet
 urllib3
-json
 numpy
 pandas
 keras
@@ -12,4 +11,3 @@ imutils
 dlib
 argparse
 tensorflow
-os
