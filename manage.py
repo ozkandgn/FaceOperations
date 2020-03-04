@@ -5,10 +5,10 @@ from Image_Processes.main import video_processing
 def download_function(url_link,video_name):
 	is_download = video_downloader(url_link,video_name)
 	if is_download:
-		processing_function(video_name)
+		return processing_function(video_name)
 
 def processing_function(video_name):
-	video_processing(video_name)
+	return video_processing(video_name)
 
 if __name__ == "__main__":
 

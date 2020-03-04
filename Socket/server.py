@@ -7,19 +7,19 @@ class VideoTaker():
 		#initial flask variables
 		self.app = Flask(__name__)
 		self.app.config['SECRET_KEY'] = 'high_top_awesome_secret_key_dont_listen'
-		self.socketio = SocketIO(self.app)
+		self.socketio = SocketIO(self.app, ping_timeout= 500000)
 
 	def listen(self,run_func):
 		#listening
-		@self.socketio.on("HelloS")
+		@self.socketio.on("videoprocess")
 		def reciever(data):
 			print("recieved "+str(data))
 			#sending data
-			self.socketio.emit("HelloTooC","{'Hello too client':'from server'}")
-			url_link = "https://s2.dosya.tc/en2.php?a=server12/39jm50/videotest.mp4&b=d20780ff8a5a185085c1cbe776a8a8b5"
-			video_name = "videotest.mp4"
+			#self.socketio.emit("status",{"status":"start"})
 			#running sended function
-			run_func(url_link,video_name)
+			data = run_func(data["url"],data["name"])
+			#emit functions closed because there is a session error
+			#self.socketio.emit("status",{"status":"end","data":str(data)})
 			
 		#start socketio
 		self.socketio.run(self.app,debug=True,use_reloader=False)

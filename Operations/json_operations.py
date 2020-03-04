@@ -13,3 +13,4 @@ class JsonOperations():
 		#create and write json file
 		with open("logs.json", 'w') as f:
 			json.dump(self.data, f,indent=2)
+		return self.data

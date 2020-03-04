@@ -1,0 +1,37 @@
+{
+  "0": {
+    "face_detected": false,
+    "frame": 0,
+    "angle": 0,
+    "left_blink": 0,
+    "right_blink": 0
+  },
+  "10": {
+    "face_detected": false,
+    "frame": 10,
+    "angle": 0,
+    "left_blink": 0,
+    "right_blink": 0
+  },
+  "20": {
+    "face_detected": false,
+    "frame": 20,
+    "angle": 0,
+    "left_blink": 0,
+    "right_blink": 0
+  },
+  "30": {
+    "face_detected": false,
+    "frame": 30,
+    "angle": 0,
+    "left_blink": 0,
+    "right_blink": 0
+  },
+  "40": {
+    "face_detected": false,
+    "frame": 40,
+    "angle": 0,
+    "left_blink": 0,
+    "right_blink": 0
+  }
+}

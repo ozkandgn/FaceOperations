@@ -16,7 +16,7 @@ def get_image(path):
 	image = cv2.imread(path)
 	return imutils.resize(image, width=500)
 
-def image_processing(image,counter):
+def image_processing(image):
 	#read image
 	#image = get_image("Image_Processes/test_images/6.jpg")
 
@@ -38,18 +38,19 @@ def image_processing(image,counter):
 		(left_eye_point,rigth_eye_point) = detect_points(left_landmarks,right_landmarks)
 
 		#for show image
-		cv2.imshow("Output", detected_image)
-		cv2.waitKey(0)
+		#cv2.imshow("Output", detected_image)
+		#cv2.waitKey(0)
 
 		#integer to bool
 		left_blink = True if left_eye_point==0 else False 
 		right_blink = True if rigth_eye_point==0 else False
 
 		#return values for read json log file
-		return (True,counter,angle,left_blink,right_blink)
+		return (True,angle,left_blink,right_blink)
 
 	else:
 		print("cannot find face")
+		return (False,0,0,0)
 
 def video_processing(video_name):
 	cap = cv2.VideoCapture(video_name)
@@ -59,11 +60,15 @@ def video_processing(video_name):
 
 	while (cap.isOpened()):
 		ret,frame = cap.read()
+		
 		#per ten frame
 		if counter%10==0:
 			if ret:
 				#processed image values sending json write
-				json.add_log(image_processing(frame,counter))
+				(face_detected,angle,left_blink,right_blink) = image_processing(frame)
+				json.add_log(face_detected,counter,angle,left_blink,right_blink)
+			else:
+				break
 		counter+=1
 	#in last all operations json file writing
-	json.write_json()
+	return json.write_json()
